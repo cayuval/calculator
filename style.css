@@ -139,3 +139,14 @@
 .nine {
     grid-area: nine;
 }
+
+@media (max-width: 768px) {
+    .calculator {
+        gap: 5px;
+        width: 250px;
+        height: 550px;
+        border-radius: 25px;
+        border: 1px black solid;
+        padding: 5px;
+    }
+}
