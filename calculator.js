@@ -2,13 +2,14 @@ const elScreen = document.querySelector('.screen')
 const elNums = document.querySelectorAll("div.num")
 const elActions = document.querySelectorAll(".action")
 const elDelete = document.querySelector(".delete")
+const elEquel = document.querySelector(".equel")
 const addCommaToNumber = (x) => {
     return x.toLocaleString("en-US");
 }
 
 let numStr = ""
 
-const nums = []
+let nums = []
 let action = ""
 
 //event listener for numbers elements
@@ -29,10 +30,29 @@ for (let j = 0; j < elActions.length; j++) {
         render()
     })
 }
-//delete current numStr
+//event listener for delete
 elDelete.addEventListener('click', () => {
     numStr = ""
     render()
+})
+
+elEquel.addEventListener('click', () => {
+    nums.push(parseInt(numStr))
+
+    if (action === '/') {
+        numStr = divide(nums)
+    } else if (action === 'X') {
+
+        numStr = times(nums)
+    } else if (action === '+') {
+
+        numStr = plus(nums)
+    } else if (action === '-') {
+
+        numStr = minus(nums)
+    }
+    render()
+    nums = []
 })
 
 //screen renderer
@@ -42,19 +62,39 @@ function render() {
 
 
 
-function plus(x, y) {
-    let res = x + y
+function plus(numbers) {
+    console.log(numbers);
+    let res = 0
+    for (let i = 0; i < numbers.length; i++) {
+        const element = numbers[i];
+        res += element
+    }
     return res
 }
-function minus(x, y) {
-    let res = x - y
+function minus(numbers) {
+    console.log(numbers);
+    let res = numbers[0]
+    for (let i = 1; i < numbers.length; i++) {
+        const element = numbers[i];
+        res -= element
+    }
     return res
 }
-function times(x, y) {
-    let res = x * y
+function times(numbers) {
+    console.log(numbers);
+    let res = numbers[0]
+    for (let i = 1; i < numbers.length; i++) {
+        const element = numbers[i];
+        res *= element
+    }
     return res
 }
-function divide(x, y) {
-    let res = x / y
+function divide(numbers) {
+    console.log(numbers);
+    let res = numbers[0]
+    for (let i = 1; i < numbers.length; i++) {
+        const element = numbers[i];
+        res /= element
+    }
     return res
 }
