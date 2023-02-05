@@ -1,22 +1,21 @@
 const elScreen = document.querySelector('.screen')
 const elNums = document.querySelectorAll("div.num")
 const elActions = document.querySelectorAll(".action")
+const elInit = document.querySelector(".init")
 const elDelete = document.querySelector(".delete")
 const elEquel = document.querySelector(".equel")
+
 const addCommaToNumber = (x) => {
     return x.toLocaleString("en-US");
 }
 
-let numStr = ""
-
-let nums = []
-let action = ""
+let screenStr = ""
 
 //event listener for numbers elements
 for (let i = 0; i < elNums.length; i++) {
     const element = elNums[i];
     element.addEventListener('click', (e) => {
-        numStr += e.target.innerText
+        screenStr += element.innerText
         render()
     })
 }
@@ -24,77 +23,30 @@ for (let i = 0; i < elNums.length; i++) {
 for (let j = 0; j < elActions.length; j++) {
     const element = elActions[j];
     element.addEventListener('click', (e) => {
-        action = e.target.innerText
-        nums.push(parseInt(numStr))
-        numStr = ""
+        screenStr += element.innerText
         render()
     })
 }
-//event listener for delete
-elDelete.addEventListener('click', () => {
+//event listener for init sign 
+elInit.addEventListener('click', () => {
     numStr = ""
+    screenStr = ""
     render()
 })
-
+//event listener for equel sign
 elEquel.addEventListener('click', () => {
-    nums.push(parseInt(numStr))
-
-    if (action === '/') {
-        numStr = divide(nums)
-    } else if (action === 'X') {
-
-        numStr = times(nums)
-    } else if (action === '+') {
-
-        numStr = plus(nums)
-    } else if (action === '-') {
-
-        numStr = minus(nums)
-    }
+    const res = eval(screenStr)
+    screenStr = res
     render()
-    nums = []
 })
-
+//event listener for delete 
+elDelete.addEventListener('click', () => {
+    console.log(screenStr.length);
+    screenStr = screenStr.slice(0, screenStr.length - 1)
+    console.log(screenStr);
+    render()
+})
 //screen renderer
 function render() {
-    elScreen.innerText = numStr
-}
-
-
-
-function plus(numbers) {
-    console.log(numbers);
-    let res = 0
-    for (let i = 0; i < numbers.length; i++) {
-        const element = numbers[i];
-        res += element
-    }
-    return res
-}
-function minus(numbers) {
-    console.log(numbers);
-    let res = numbers[0]
-    for (let i = 1; i < numbers.length; i++) {
-        const element = numbers[i];
-        res -= element
-    }
-    return res
-}
-function times(numbers) {
-    console.log(numbers);
-    let res = numbers[0]
-    for (let i = 1; i < numbers.length; i++) {
-        const element = numbers[i];
-        res *= element
-    }
-    return res
-}
-function divide(numbers) {
-    console.log(numbers);
-    let res = numbers[0]
-    for (let i = 1; i < numbers.length; i++) {
-        const element = numbers[i];
-        res /= element
-    }
-    return res
+    elScreen.innerText = screenStr
 }
