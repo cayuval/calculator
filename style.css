@@ -38,8 +38,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: gold;
-    color: white;
+    background-color: cornsilk;
+    color: black;
 }
 
 .calculatorDiv:hover {
